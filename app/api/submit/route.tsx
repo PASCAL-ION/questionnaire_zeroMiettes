@@ -18,6 +18,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, user });
   } catch (error) {
     console.error("Erreur lors de la sauvegarde :", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    
+    if (error instanceof Error) {
+      console.error("Erreur lors de la sauvegarde :", error.message);
+    }
+    
+    return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 });    
   }
+  
 }
