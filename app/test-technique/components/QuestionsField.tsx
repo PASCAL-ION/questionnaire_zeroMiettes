@@ -11,7 +11,14 @@ import {
 } from "@/components/ui/multi-select";
 
 interface FormValues {
-  [key: string]: string | number | string[];
+  fullName: string;
+  availability: number;
+  role: string;
+  skills: [string, ...string[]];
+  motivation: string;
+  tools?: string[];
+  githubRepo?: string;
+  customTool?: string;
 }
 
 type Props = {
