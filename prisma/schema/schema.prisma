@@ -8,3 +8,16 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           Int       @id @default(autoincrement())
+  fullName     String
+  availability Int
+  role         String
+  skills       String[]
+  motivation   String
+  tools        String[]  @default([])
+  githubRepo   String
+  createdAt    DateTime  @default(now())
+}
+

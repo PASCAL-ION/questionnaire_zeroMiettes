@@ -1,6 +1,6 @@
 import Header from "@/components/misc/header";
-import type { Metadata } from "next";
-import { clash_display, inter, poppins, roboto_mono } from "./fonts/fonts";
+import type { Metadata } from "@/prisma/node_modules/next";
+// import { clash_display, inter, poppins, roboto_mono } from "./fonts/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html
       suppressHydrationWarning
       lang="fr"
-      className={`${poppins.variable} ${roboto_mono.variable} ${clash_display.variable} ${inter.variable}`}
+      // className={`${poppins.variable} ${roboto_mono.variable} ${clash_display.variable} ${inter.variable}`}
     >
       <body className={`bg-background flex h-screen flex-col antialiased`}>
         <Header />
