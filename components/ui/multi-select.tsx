@@ -28,7 +28,7 @@ interface MultiSelectorProps
 
 interface MultiSelectContextProps {
   value: string[]
-  onValueChange: (value: any) => void
+  onValueChange: (value: string | number | boolean) => void
   open: boolean
   setOpen: (value: boolean) => void
   inputValue: string
