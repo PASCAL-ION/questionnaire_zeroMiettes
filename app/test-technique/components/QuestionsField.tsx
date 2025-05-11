@@ -40,7 +40,7 @@ export function QuestionField({
 }: Props) {
   const { id, type, title, options } = question;
 
-  const error = errors?.[id]?.message as string | undefined;
+const error = errors?.[id as keyof FormValues]?.message as string | undefined;
 
   if (type === "text" || type === "number") {
     return (
