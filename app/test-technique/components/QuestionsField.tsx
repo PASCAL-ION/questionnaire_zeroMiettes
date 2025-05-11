@@ -1,5 +1,5 @@
 import { Controller, UseFormRegister, Control, FieldErrors } from "react-hook-form";
-import { Question } from "@/lib/questions";
+import { Question } from "../questions";
 import React from "react";
 import {
   MultiSelector,
