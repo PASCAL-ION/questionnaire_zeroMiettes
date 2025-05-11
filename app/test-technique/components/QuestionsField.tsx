@@ -40,7 +40,7 @@ export function QuestionField({
 }: Props) {
   const { id, type, title, options } = question;
 
-const error = errors?.[id as keyof FormValues]?.message as string | undefined;
+  const error = errors?.[id as keyof FormValues]?.message as string | undefined;
 
   if (type === "text" || type === "number") {
     return (
@@ -48,7 +48,7 @@ const error = errors?.[id as keyof FormValues]?.message as string | undefined;
         <label className="font-medium">{title}</label>
         <input
           type={type}
-          {...register(id)}
+          {...register(id as keyof FormValues)}
           className="w-full rounded-lg border border-[#06402B] bg-white p-3 text-lg"
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
@@ -65,7 +65,7 @@ const error = errors?.[id as keyof FormValues]?.message as string | undefined;
             <input
               type="radio"
               value={option}
-              {...register(id)}
+              {...register(id as keyof FormValues)}
               className="mr-2"
             />
             {option}
@@ -82,7 +82,7 @@ const error = errors?.[id as keyof FormValues]?.message as string | undefined;
         <label className="font-medium">{title}</label>
         <textarea
           rows={4}
-          {...register(id)}
+          {...register(id as keyof FormValues)}
           className="w-full rounded-lg border border-[#06402B] bg-white p-3 text-lg"
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
@@ -96,7 +96,7 @@ const error = errors?.[id as keyof FormValues]?.message as string | undefined;
         <label className="font-medium">{title}</label>
         <Controller
           control={control}
-          name={id}
+          name={id as keyof FormValues}
           render={({ field }) => (
             <MultiSelector
               values={(field.value as string[]) || []}
@@ -130,7 +130,7 @@ const error = errors?.[id as keyof FormValues]?.message as string | undefined;
         <label className="font-medium">{title}</label>
         <Controller
           control={control}
-          name={id}
+          name={id as keyof FormValues}
           render={({ field }) => {
             const selected = (field.value as string[]) || [];
             const toggleValue = (val: string) => {
