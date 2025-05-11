@@ -1,4 +1,4 @@
-import { Controller, UseFormRegister, Control } from "react-hook-form";
+import { Controller, UseFormRegister, Control, FieldErrors } from "react-hook-form";
 import { Question } from "@/lib/questions";
 import React from "react";
 import {
@@ -10,11 +10,15 @@ import {
   MultiSelectorTrigger,
 } from "@/components/ui/multi-select";
 
+interface FormValues {
+  [key: string]: string | number | string[];
+}
+
 type Props = {
   question: Question;
-  register: UseFormRegister<any>;
-  control: Control<any>;
-  errors: Record<string, any>;
+  register: UseFormRegister<FormValues>;
+  control: Control<FormValues>;
+  errors: FieldErrors<FormValues>;
   otherTool?: string;
   setOtherTool?: (val: string) => void;
 };
@@ -29,7 +33,7 @@ export function QuestionField({
 }: Props) {
   const { id, type, title, options } = question;
 
-  const error = errors?.[id]?.message;
+  const error = errors?.[id]?.message as string | undefined;
 
   if (type === "text" || type === "number") {
     return (
@@ -88,7 +92,7 @@ export function QuestionField({
           name={id}
           render={({ field }) => (
             <MultiSelector
-              values={field.value || []}
+              values={(field.value as string[]) || []}
               onValuesChange={field.onChange}
               loop
               className="w-full"
@@ -121,10 +125,10 @@ export function QuestionField({
           control={control}
           name={id}
           render={({ field }) => {
-            const selected = field.value || [];
+            const selected = (field.value as string[]) || [];
             const toggleValue = (val: string) => {
               const updated = selected.includes(val)
-                ? selected.filter((v: string) => v !== val)
+                ? selected.filter((v) => v !== val)
                 : [...selected, val];
               field.onChange(updated);
             };
