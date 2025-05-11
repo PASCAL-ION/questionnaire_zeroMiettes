@@ -1,8 +1,14 @@
-// components/QuestionField.tsx
-
 import { Controller, UseFormRegister, Control } from "react-hook-form";
 import { Question } from "@/lib/questions";
 import React from "react";
+import {
+  MultiSelector,
+  MultiSelectorContent,
+  MultiSelectorInput,
+  MultiSelectorItem,
+  MultiSelectorList,
+  MultiSelectorTrigger,
+} from "@/components/ui/multi-select";
 
 type Props = {
   question: Question;

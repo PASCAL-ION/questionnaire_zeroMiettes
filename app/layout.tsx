@@ -1,4 +1,4 @@
-import Header from "@/components/misc/header";
+import Header from "../components/misc/header";
 import type { Metadata } from "@/prisma/node_modules/next";
 // import { clash_display, inter, poppins, roboto_mono } from "./fonts/fonts";
 import "./globals.css";
