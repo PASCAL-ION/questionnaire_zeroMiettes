@@ -1,6 +1,18 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 export default async function AdminPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Accès refusé. Veuillez vous connecter.</p>
+      </div>
+    );
+  }
+
   const users = await prisma.user.findMany();
 
   return (
@@ -19,6 +31,7 @@ export default async function AdminPage() {
               <th className="border border-gray-300 px-2 sm:px-4 py-2">Motivation</th>
               <th className="border border-gray-300 px-2 sm:px-4 py-2">Outils</th>
               <th className="border border-gray-300 px-2 sm:px-4 py-2">GitHub</th>
+              <th className="border border-gray-300 px-2 sm:px-4 py-2">Email</th>
             </tr>
           </thead>
           <tbody>
@@ -44,6 +57,7 @@ export default async function AdminPage() {
                     {user.githubRepo}
                   </a>
                 </td>
+                <td className="border border-gray-300 px-2 sm:px-4 py-2">{user.email}</td>
               </tr>
             ))}
           </tbody>
