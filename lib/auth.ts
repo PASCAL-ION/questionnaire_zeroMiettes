@@ -44,14 +44,18 @@ export const authOptions = {
     strategy: "jwt" as const,
   },
   callbacks: {
-    async session({ session, token }: { session: Session; token: JWT }) {
-      if (token) {
-        session.user = { id: token.sub, email: token.email };
-      }else {
-        session.user = { id: "", email: "" };
-      }
-      return session;
-    },
+   async session({ session, token }: { session: Session; token: JWT }) {
+  if (token) {
+    session.user = {
+      id: token.sub ?? "",  
+      email: token.email ?? "",  
+    };
+  } else {
+    session.user = { id: "", email: "" };
+  }
+  return session;
+}
+
     async jwt({ token, user }: { token: JWT; user?: any }) {
       if (user) {
         token.id = user.id;
