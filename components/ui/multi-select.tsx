@@ -60,7 +60,7 @@ const MultiSelector = ({
   onValuesChange: onValueChange,
   loop = false,
   className,
-  children: React.ReactNode = null,
+  children,
   dir,
   ...props
 }: MultiSelectorProps) => {
