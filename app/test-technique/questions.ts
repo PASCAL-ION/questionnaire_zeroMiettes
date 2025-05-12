@@ -61,4 +61,11 @@ export const questions: Question[] = [
     description: "Partage un lien vers un de tes dépôts si tu veux.",
     required: false,
   },
+  {
+    id: "email",
+    type: "text",
+    title: "Ton adresse email",
+    description: "Nous en avons besoin pour te contacter.",
+    required: true,
+  },
 ];

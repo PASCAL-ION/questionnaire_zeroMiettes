@@ -6,16 +6,17 @@ export async function POST(req: Request) {
     const data = await req.json();
 
     const user = await prisma.user.create({
-      data: {
-        fullName: data.fullName,
-        availability: data.availability,
-        role: data.role,
-        skills: data.skills,
-        motivation: data.motivation,
-        tools: data.tools || [],
-        githubRepo: data.githubRepo || null,
-      },
-    });
+    data: {
+      fullName: data.fullName,
+      availability: data.availability,
+      role: data.role,
+      skills: data.skills,
+      motivation: data.motivation,
+      tools: data.tools || [],
+      githubRepo: data.githubRepo || null,
+      email: data.email,
+    },
+});
 
     return NextResponse.json({ success: true, user });
   } catch (error) {

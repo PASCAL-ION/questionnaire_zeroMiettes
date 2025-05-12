@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { questions } from "./questions";
 import { QuestionField } from "./components/QuestionsField";
@@ -24,6 +24,10 @@ const schema = z.object({
     .string()
     .url("L’URL du dépôt GitHub n’est pas valide.")
     .optional(),
+  email: z
+    .string()
+    .email("Merci d’indiquer une adresse email valide.")
+    .min(1, "Merci d’indiquer ton adresse email."),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -52,6 +56,7 @@ export default function Form() {
       tools: [],
       customTool: "",
       githubRepo: "",
+      email: "",
     },
   });
 
@@ -98,6 +103,24 @@ export default function Form() {
       setStep((prev) => prev + 1);
     }
   };
+
+  const handleKeyDown = async (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (step < questions.length - 1) {
+        await nextStep();
+      } else {
+        handleSubmit(onSubmit)();
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [step]);
 
   const totalSteps = questions.length;
   const progress = ((step + 1) / totalSteps) * 100;
