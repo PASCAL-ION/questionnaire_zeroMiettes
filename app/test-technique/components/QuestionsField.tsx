@@ -16,6 +16,7 @@ interface FormValues {
   role: string;
   skills: [string, ...string[]];
   motivation: string;
+  email: string;
   tools?: string[];
   githubRepo?: string;
   customTool?: string;
