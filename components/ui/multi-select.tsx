@@ -60,7 +60,7 @@ const MultiSelector = ({
   onValuesChange: onValueChange,
   loop = false,
   className,
-  children,
+  children: React.ReactNode = null,
   dir,
   ...props
 }: MultiSelectorProps) => {
@@ -88,10 +88,10 @@ const MultiSelector = ({
     (e: React.SyntheticEvent<HTMLInputElement>) => {
       e.preventDefault()
       const target = e.currentTarget
-      const selection = target.value.substring(
+      const selection = target.value?.substring(
         target.selectionStart ?? 0,
         target.selectionEnd ?? 0,
-      )
+      ) || "";
 
       setSelectedValue(selection)
       setIsValueSelected(selection === inputValue)
@@ -183,7 +183,7 @@ const MultiSelector = ({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value, inputValue, activeIndex, loop],
+    [dir, value, inputValue, activeIndex, loop],
   )
 
   return (
@@ -197,7 +197,7 @@ const MultiSelector = ({
         setInputValue,
         activeIndex,
         setActiveIndex,
-        ref: inputRef,
+        ref: inputRef as React.RefObject<HTMLInputElement>,
         handleSelect,
       }}
     >
@@ -241,7 +241,7 @@ const MultiSelectorTrigger = forwardRef<
     >
       {value.map((item, index) => (
         <Badge
-          key={item}
+          key={`${item}-${index}`}
           className={cn(
             'px-1 rounded-xl flex items-center gap-1',
             activeIndex === index && 'ring-2 ring-muted-foreground ',
