@@ -72,16 +72,17 @@ const MultiSelector = ({
   const [selectedValue, setSelectedValue] = React.useState('')
 
   const onValueChangeHandler = useCallback(
-    (val: string) => {
+  (val: string | number | boolean) => {
+    if (typeof val === "string") {
       if (value.includes(val)) {
-        onValueChange(value.filter((item) => item !== val))
+        onValueChange(value.filter((item) => item !== val));
       } else {
-        onValueChange([...value, val])
+        onValueChange([...value, val]);
       }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value],
-  )
+    }
+  },
+  [value, onValueChange]
+);
 
   const handleSelect = React.useCallback(
     (e: React.SyntheticEvent<HTMLInputElement>) => {
